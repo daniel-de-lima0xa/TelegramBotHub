@@ -1,44 +1,44 @@
-# TELEGRAM NMAP BOT
 
-Este é um bot para o Telegram que permite realizar scans Nmap diretamente do aplicativo. Desenvolvido em Python, utilizando a biblioteca [python-telegram-bot](https://python-telegram-bot.readthedocs.io/), este bot pode ser facilmente integrado e personalizado para atender às suas necessidades.
+# Telegram Bot de Ferramentas
 
-## COMO UTILIZAR
+Este é um simples bot de Telegram que permite executar ferramentas diretamente de um grupo. Ele é útil para automação e colaboração em projetos de segurança e desenvolvimento.
 
-1. **Iniciando uma Conversa com o Bot:**
-   - Procure por `@seu_bot_nmap_bot` no Telegram e inicie uma conversa com o bot.
+## Instruções de Uso
 
-2. **Enviando Comandos do Nmap:**
-   - Utilize o comando `/nmap` seguido dos argumentos desejados para o Nmap. Por exemplo:
-     ```plaintext
-     /nmap -sT scanme.nmap.org
-     ```
+1. Inicie uma conversa com o bot ou adicione-o a um grupo.
+2. Use os seguintes comandos seguidos pelos argumentos necessários:
 
-3. **Recebendo Resultados:**
-   - O bot executará o Nmap com base nos argumentos fornecidos e enviará o resultado formatado de volta para você.
+   - `/start`: Inicia a conversa e fornece instruções.
+   - `/katana <argumentos>`: Executa a ferramenta Katana.
+   - `/httpx <argumentos>`: Executa a ferramenta HTTPx.
+   - `/subfinder <argumentos>`: Executa a ferramenta Subfinder.
+   - `/ffuf <argumentos>`: Executa a ferramenta FFuF.
 
-## COMANDOS DISPONÍVEIS
+## Configuração
 
-- `/start`: Inicia a conversa com o bot e fornece instruções básicas.
-- `/nmap <flags> <alvo>`: Executa o Nmap com os argumentos fornecidos e retorna o resultado.
+Antes de usar o bot, siga estas etapas de configuração:
 
-## CONFIGURAÇÃO
+1. Obtenha um token do Telegram para o bot.
+2. Substitua `"TOKEN"` na variável `telegram_token` pelo token obtido.
+3. Defina o `group_id` com o ID do grupo em que deseja enviar mensagens.
 
-Certifique-se de ajustar as seguintes variáveis no script para a configuração adequada:
+## Requisitos
 
-```python
-# Token do Telegram (substitua pelo seu)
-telegram_token = "SEU_TOKEN_AQUI"
+Certifique-se de ter as ferramentas Katana, HTTPx, Subfinder e FFuF instaladas e acessíveis no ambiente onde este bot será executado.
 
-# ID do grupo
-group_id = -1234567890  # Substitua pelo ID do seu grupo
+## Observações
 
+- Certifique-se de que o bot tenha permissões adequadas para enviar mensagens no grupo especificado.
+- Este bot não lida com erros de entrada ou saída de ferramentas, portanto, verifique se os argumentos fornecidos estão corretos.
 
-REQUISITOS
-Certifique-se de instalar as dependências necessárias antes de executar o bot. Você pode instalá-las utilizando o seguinte comando:
+## Aviso
 
-  pip install python-telegram-bot
+Este bot foi criado para fins educacionais e de teste. Use-o com responsabilidade e respeite os Termos de Serviço do Telegram.
 
-NOTAS IMPORTANTES
-Este bot foi desenvolvido para fins educacionais e de aprendizado.
-Certifique-se de obedecer aos termos de serviço do Telegram ao usar este bot.
-Sinta-se à vontade para personalizar, expandir ou contribuir para este projeto!
+## Licença
+
+Este projeto é distribuído sob a [licença MIT](https://opensource.org/licenses/MIT). Sinta-se à vontade para modificar e redistribuir conforme necessário.
+
+--- 
+
+Isso deve fornecer uma documentação clara e concisa para os usuários que visitam o seu repositório no GitHub.

@@ -39,6 +39,4 @@ Este bot foi criado para fins educacionais e de teste. Use-o com responsabilidad
 
 Este projeto é distribuído sob a [licença MIT](https://opensource.org/licenses/MIT). Sinta-se à vontade para modificar e redistribuir conforme necessário.
 
---- 
-
-Isso deve fornecer uma documentação clara e concisa para os usuários que visitam o seu repositório no GitHub.
+----

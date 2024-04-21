@@ -31,6 +31,9 @@ Certifique-se de ter as ferramentas Katana, HTTPx, Subfinder e FFuF instaladas e
 - Certifique-se de que o bot tenha permissões adequadas para enviar mensagens no grupo especificado.
 - Este bot não lida com erros de entrada ou saída de ferramentas, portanto, verifique se os argumentos fornecidos estão corretos.
 
+## Demostração
+![telegram](https://github.com/daniel-de-lima0xa/TelegramBotHub/assets/59209081/bf0c2764-64a3-49ac-aa39-9f51357beb16)
+
 ## Aviso
 
 Este bot foi criado para fins educacionais e de teste. Use-o com responsabilidade e respeite os Termos de Serviço do Telegram.

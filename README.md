@@ -13,6 +13,7 @@ Este é um simples bot de Telegram que permite executar ferramentas diretamente 
    - `/httpx <argumentos>`: Executa a ferramenta HTTPx.
    - `/subfinder <argumentos>`: Executa a ferramenta Subfinder.
    - `/ffuf <argumentos>`: Executa a ferramenta FFuF.
+   - `/naabu <argumentos>`: Executa a ferramenta naabu.
 
 ## Configuração
 

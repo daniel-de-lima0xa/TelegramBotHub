@@ -1,53 +1,53 @@
 import subprocess
 from telegram.ext import Updater, CommandHandler, CallbackContext
-from telegram import Update, ReplyKeyboardMarkup
+from telegram import Update, ParseMode, ReplyKeyboardMarkup
 import logging
-import time
 
-# Configuração do logger
+# Configuration for logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Token do Telegram
+# Telegram token
 telegram_token = "token"
 
-# ID do grupo
-group_id = id chat
+# Group ID
+group_id = id_chat
 
-# Opções do menu
-menu_options = [["Nmap", "Naabu", "Waybackurls"], ["Subfinder"], ["Katana"]]
+# Menu options (including Ffuf)
+menu_options = [["Nmap", "Naabu", "Ffuf"], ["Subfinder"], ["Katana"]]
 
 
 def start(update: Update, context: CallbackContext) -> None:
-    """Envia mensagem de boas-vindas e instruções ao usuário."""
+    """Sends a welcome message and instructions to the user."""
     user_id = update.message.from_user.id
     update.message.reply_text(
-        f"Olá, usuário {user_id}! Envie /menu para exibir as opções disponíveis."
+        f"Hello, user {user_id}! Send /menu to view available options."
     )
 
 
 def menu(update: Update, context: CallbackContext) -> None:
-    """Exibe o menu de opções."""
+    """Displays the menu options."""
     keyboard = ReplyKeyboardMarkup(menu_options, one_time_keyboard=True)
     update.message.reply_text(
-        "Escolha uma opção:",
+        "Choose an option:",
         reply_markup=keyboard
     )
 
 
 def execute_command(command: list[str]) -> str:
-    """Executa um comando e retorna a saída."""
+    """Executes a command and returns the output."""
     try:
+        logger.info(f"Executing command: {' '.join(command)}")
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         output = result.stdout.strip()
         return output
     except subprocess.CalledProcessError as e:
-        logger.error(f"Erro ao executar o comando: {e}")
-        return f"Erro ao executar o comando: {e}"
+        logger.error(f"Error executing command: {e}")
+        return f"Error executing command: {e}"
 
 
 def katana(update: Update, context: CallbackContext) -> None:
-    """Executa a ferramenta Katana e envia o resultado ao usuário."""
+    """Executes the Katana tool and sends the result to the user."""
     try:
         args = context.args
         url_index = args.index('-u') if '-u' in args else None
@@ -57,57 +57,54 @@ def katana(update: Update, context: CallbackContext) -> None:
             url = args[url_index + 1]
             number = args[number_index + 1]
             result = execute_command(["katana", "-u", url, "-d", number])
-            update.message.reply_text(f"**Resultado Katana**\n\n{result}\n", parse_mode="Markdown")
+            update.message.reply_text(f"**Katana Result**\n\n```\n{result}\n```\n", parse_mode=ParseMode.MARKDOWN_V2)
         else:
-            update.message.reply_text("Por favor, forneça uma URL e um número usando '-u' e '-d'.")
+            update.message.reply_text("Please provide a URL and a number using '-u' and '-d'.")
     except ValueError:
-        update.message.reply_text("Por favor, forneça uma URL e um número usando '-u' e '-d'.")
+        update.message.reply_text("Please provide a URL and a number using '-u' and '-d'.")
 
 
 def nmap(update: Update, context: CallbackContext) -> None:
-    """Executa o Nmap com base nos argumentos fornecidos e envia o resultado ao usuário."""
+    """Executes Nmap based on the provided arguments and sends the result to the user."""
     result = execute_command(["nmap"] + context.args)
-    update.message.reply_text(f"**Resultado Nmap**\n\n{result}\n", parse_mode="Markdown")
+    update.message.reply_text(f"**Nmap Result**\n\n```\n{result}\n```\n", parse_mode=ParseMode.MARKDOWN_V2)
 
 
 def subfinder(update: Update, context: CallbackContext) -> None:
-    """Executa o Subfinder com base nos argumentos fornecidos e envia o resultado ao usuário."""
-    result = execute_command(["subfinder"] + context.args)
-    update.message.reply_text(f"**Resultado Subfinder**\n\n{result}\n", parse_mode="Markdown")
+    """Executes Subfinder based on the provided arguments and sends the result to the user."""
+    try:
+        logger.info(f"Executing Subfinder command with args: {context.args}")
+        result = execute_command(["subfinder"] + context.args)
+        logger.info(f"Subfinder command result: {result}")
+
+        update.message.reply_text(f"**Subfinder Result**\n\n```\n{result}\n```\n", parse_mode=ParseMode.MARKDOWN_V2)
+    except Exception as e:
+        logger.error(f"Error executing Subfinder command: {e}")
+        update.message.reply_text(f"An error occurred while executing the Subfinder command: {e}")
+
+
+def ffuf(update: Update, context: CallbackContext) -> None:
+    """Executes Ffuf based on the provided arguments and sends the result to the user."""
+    try:
+        result = execute_command(["ffuf"] + context.args)
+        update.message.reply_text(f"**Ffuf Result**\n\n```\n{result}\n```\n", parse_mode=ParseMode.MARKDOWN_V2)
+    except Exception as e:
+        logger.error(f"Error executing Ffuf command: {e}")
+        update.message.reply_text(f"An error occurred while executing the Ffuf command: {e}")
 
 
 def naabu(update: Update, context: CallbackContext) -> None:
-    """Executa o Naabu com base nos argumentos fornecidos e envia o resultado ao usuário."""
-    result = execute_command(["naabu"] + context.args)
-    update.message.reply_text(f"**Resultado Naabu**\n\n{result}\n", parse_mode="Markdown")
-
-
-def waybackurls(update: Update, context: CallbackContext) -> None:
-    """Executa o Waybackurls com base no site fornecido como argumento e envia o resultado ao usuário."""
+    """Executes Naabu based on the provided arguments and sends the result to the user."""
     try:
-        # Verifica se o site foi fornecido como argumento
-        if len(context.args) < 1:
-            update.message.reply_text("Por favor, forneça o site como argumento. Exemplo: /waybackurls example.com")
-            return
-
-        # Extrai o site do argumento
-        site = context.args[0]
-
-        # Executa o Waybackurls para o site fornecido
-        result = execute_command(["waybackurls", site])
-
-        # Divide o resultado em partes menores para enviar em várias mensagens
-        max_message_length = 4096  # Tamanho máximo permitido para uma mensagem do Telegram
-        for i in range(0, len(result), max_message_length):
-            update.message.reply_text(f"**Resultado Waybackurls para {site} (Parte {i//max_message_length+1})**\n\n{result[i:i+max_message_length]}\n", parse_mode="Markdown")
-            time.sleep(1)  # Adiciona um pequeno atraso entre as mensagens para evitar problemas de taxa limite
+        result = execute_command(["naabu"] + context.args)
+        update.message.reply_text(f"**Naabu Result**\n\n```\n{result}\n```\n", parse_mode=ParseMode.MARKDOWN_V2)
     except Exception as e:
-        logger.error(f"Erro ao executar o comando Waybackurls: {e}")
-        update.message.reply_text(f"Ocorreu um erro ao executar o comando Waybackurls: {e}")
+        logger.error(f"Error executing Naabu command: {e}")
+        update.message.reply_text(f"An error occurred while executing the Naabu command: {e}")
 
 
 def main() -> None:
-    """Inicia o bot do Telegram."""
+    """Starts the Telegram bot."""
     updater = Updater(token=telegram_token, use_context=True)
     dispatcher = updater.dispatcher
 
@@ -116,10 +113,10 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("katana", katana, pass_args=True))
     dispatcher.add_handler(CommandHandler("nmap", nmap, pass_args=True))
     dispatcher.add_handler(CommandHandler("subfinder", subfinder, pass_args=True))
-    dispatcher.add_handler(CommandHandler("naabu", naabu, pass_args=True))
-    dispatcher.add_handler(CommandHandler("waybackurls", waybackurls, pass_args=True))  # Adicionando suporte para Waybackurls
+    dispatcher.add_handler(CommandHandler("ffuf", ffuf, pass_args=True))  # Adding support for Ffuf
+    dispatcher.add_handler(CommandHandler("naabu", naabu, pass_args=True))  # Adding support for Naabu
 
-    updater.bot.send_message(chat_id=group_id, text="Olá, grupo!")
+    updater.bot.send_message(chat_id=group_id, text="Hello, group!")
 
     updater.start_polling()
     updater.idle()

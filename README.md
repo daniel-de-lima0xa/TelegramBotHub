@@ -1,46 +1,45 @@
-
 # Telegram Bot de Ferramentas
 
-Este é um simples bot de Telegram que permite executar ferramentas diretamente de um grupo. Ele é útil para automação e colaboração em projetos de segurança e desenvolvimento.
+This is a simple Telegram bot that allows you to execute tools directly from a group. It is useful for automation and collaboration in security and development projects.
 
-## Instruções de Uso
+## Usage Instructions
 
-1. Inicie uma conversa com o bot ou adicione-o a um grupo.
-2. Use os seguintes comandos seguidos pelos argumentos necessários:
+1. Start a conversation with the bot or add it to a group.
+2. Use the following commands followed by the necessary arguments:
 
-   - `/start`: Inicia a conversa e fornece instruções.
-   - `/katana <argumentos>`: Executa a ferramenta Katana.
-   - `/httpx <argumentos>`: Executa a ferramenta HTTPx.
-   - `/subfinder <argumentos>`: Executa a ferramenta Subfinder.
-   - `/ffuf <argumentos>`: Executa a ferramenta FFuF.
-   - `/naabu <argumentos>`: Executa a ferramenta naabu.
+   - `/start`: Starts the conversation and provides instructions.
+   - `/katana <arguments>`: Executes the Katana tool.
+   - `/httpx <arguments>`: Executes the HTTPx tool.
+   - `/subfinder <arguments>`: Executes the Subfinder tool.
+   - `/ffuf <arguments>`: Executes the FFuF tool.
+   - `/naabu <arguments>`: Executes the naabu tool.
 
-## Configuração
+## Configuration
 
-Antes de usar o bot, siga estas etapas de configuração:
+Before using the bot, follow these setup steps:
 
-1. Obtenha um token do Telegram para o bot.
-2. Substitua `"TOKEN"` na variável `telegram_token` pelo token obtido.
-3. Defina o `group_id` com o ID do grupo em que deseja enviar mensagens.
+1. Obtain a Telegram token for the bot.
+2. Replace `"TOKEN"` in the `telegram_token` variable with the obtained token.
+3. Set the `group_id` with the ID of the group where you want to send messages.
 
-## Requisitos
+## Requirements
 
-Certifique-se de ter as ferramentas Katana, HTTPx, Subfinder e FFuF instaladas e acessíveis no ambiente onde este bot será executado.
+Make sure you have the Katana, HTTPx, Subfinder, and FFuF tools installed and accessible in the environment where this bot will be running.
 
-## Observações
+## Notes
 
-- Certifique-se de que o bot tenha permissões adequadas para enviar mensagens no grupo especificado.
-- Este bot não lida com erros de entrada ou saída de ferramentas, portanto, verifique se os argumentos fornecidos estão corretos.
+- Ensure that the bot has proper permissions to send messages in the specified group.
+- This bot does not handle tool input or output errors, so make sure the provided arguments are correct.
 
-## Demostração
+## Demonstration
 ![telegram](https://github.com/daniel-de-lima0xa/TelegramBotHub/assets/59209081/bf0c2764-64a3-49ac-aa39-9f51357beb16)
 
-## Aviso
+## Disclaimer
 
-Este bot foi criado para fins educacionais e de teste. Use-o com responsabilidade e respeite os Termos de Serviço do Telegram.
+This bot was created for educational and testing purposes. Use it responsibly and respect the Telegram Terms of Service.
 
-## Licença
+## License
 
-Este projeto é distribuído sob a [licença MIT](https://opensource.org/licenses/MIT). Sinta-se à vontade para modificar e redistribuir conforme necessário.
+This project is distributed under the [MIT license](https://opensource.org/licenses/MIT). Feel free to modify and redistribute as needed.
 
 ----
